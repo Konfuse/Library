@@ -52,7 +52,7 @@ public class SearchServlet extends HttpServlet {
 			request.getRequestDispatcher("/list.jsp").forward(request, response);
 		}else {
 			response.getWriter().write("Did not successfully match any record ! 5 seconds to jump to the search page");
-			response.setHeader("refresh", "5;url=" + request.getContextPath()+ "/index.html");
+			response.setHeader("refresh", "5;url=" + request.getContextPath()+ "/search.jsp");
 		}
 	}
 

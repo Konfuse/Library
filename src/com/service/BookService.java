@@ -9,9 +9,13 @@ public interface BookService {
 
 	public boolean addBook(Book book);
 
-	public Boolean searchTheBook(String bookName);
+	public Boolean searchTheBook(String bookName,String author);
 
-	public boolean borrow(String bookName);
+	public boolean borrow(String book_id, String reader_name);
 
-	public boolean returnBook(String bookName, int count);
+	public boolean returnBook(String book_id);
+
+	public boolean deleteBook(String id);
+
+	public boolean changeLocation(Book book);
 }

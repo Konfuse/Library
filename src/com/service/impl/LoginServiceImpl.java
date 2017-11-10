@@ -15,7 +15,6 @@ public class LoginServiceImpl implements LoginService {
 		Connection conn = null;
 		try {
 			conn = DBUtils.getConnection();
-			conn.setAutoCommit(false);
 			ResultSet resultSet = null;
 			if (isLibrarian.equals("true")) {
 				resultSet = userInformationDao.getLibrarian(conn, urn, psw);

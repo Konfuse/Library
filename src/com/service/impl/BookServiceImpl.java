@@ -18,30 +18,26 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public boolean addBook(Book book) {
-		boolean state = false;
-
-		if (bookdao.searchTheBook(book.getBook_name())) {
-			state = bookdao.returnBook(book.getBook_name(), book.getNum());
-		} else {
-			state = bookdao.addBook(book);
-		}
-
-		return state;
+		return bookdao.addBook(book);
 	}
 
-	public Boolean searchTheBook(String bookName) {
-		return bookdao.searchTheBook(bookName);
-
+	public Boolean searchTheBook(String bookName, String author) {
+		return bookdao.searchTheBook(bookName, author);
 	}
 
-	public boolean borrow(String bookName) {
-		return bookdao.borrowBook(bookName);
-
+	public boolean borrow(String book_id, String reader_name) {
+		return bookdao.borrowBook(book_id, reader_name);
 	}
 
-	public boolean returnBook(String bookName, int count) {
-		return bookdao.returnBook(bookName, count);
-
+	public boolean returnBook(String book_id) {
+		return bookdao.returnBook(book_id);
 	}
 
+	public boolean deleteBook(String id) {
+		return bookdao.deleteBook(id);
+	}
+
+	public boolean changeLocation(Book book) {
+		return bookdao.changeLocation(book);
+	}
 }

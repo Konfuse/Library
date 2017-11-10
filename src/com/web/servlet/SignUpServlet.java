@@ -33,12 +33,11 @@ public class SignUpServlet extends HttpServlet {
 		String forward = null;
 		LoginUpServiceImpl service = new LoginUpServiceImpl();
 		boolean isSuccess = service.update(urn, psw);
-		//aaaaaaaaaaaaaaaaaaaaa
 		if (isSuccess) {
 			forward = "login.jsp";
 		} else {
 			request.setAttribute("msg", "kkk");
-			forward = "error.jsp";
+			forward = "SignUp.jsp";
 		}
 		rd = request.getRequestDispatcher(forward);
 		rd.forward(request, response);

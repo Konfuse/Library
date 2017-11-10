@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.domain.Book;
+import com.service.BookService;
 import com.service.impl.BookServiceImpl;
+import com.utils.Scanner;
 
 /**
  * Servlet implementation class AddServlet
@@ -27,31 +29,28 @@ public class AddServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 
-		String book_name = request.getParameter("book_name");
-		String author = request.getParameter("author");
-		String publishing = request.getParameter("publishing");
-		int num = Integer.parseInt(request.getParameter("num"));
 		String location = request.getParameter("location");
-		Book book = new Book();
-		book.setBook_name(book_name);
-		book.setAuthor(author);
-		book.setPublishing(publishing);
-		book.setNum(num);
-		book.setLocation(location);
+		Book book = null;
+		Object obj = Scanner.dealInfo();
+		if (obj instanceof Book) {
+			book = (Book)obj;
+			book.setLocation(location);
+			BookService bookServiceImpl = new BookServiceImpl();
 
-		String name = (String) request.getSession().getAttribute("user_name");
-		if (name != null) {
-			BookServiceImpl bookServiceImpl = new BookServiceImpl();
 			if (bookServiceImpl.addBook(book)) {
 				request.setAttribute("state", 1);
 				response.getWriter().write("Added successfully! Jumping after 5 seconds");
 				response.setHeader("refresh", "5;url=" + request.getContextPath()
-						+ "/index2.html");
+						+ "/index2.jsp");
+			} else {
+				response.getWriter().write("Add failed! Jumping after 5 seconds");
+				response.setHeader("refresh", "5;url=" + request.getContextPath()
+						+ "/addBook.jsp");
 			}
-		}else {
-			response.getWriter().write("Add failed! please log in first");
+		} else {
+			response.getWriter().write("Wrong Scanning! Please scan again!");
 			response.setHeader("refresh", "5;url=" + request.getContextPath()
-					+ "/login.jsp");
+					+ "/addBook.jsp");
 		}
 	}
 

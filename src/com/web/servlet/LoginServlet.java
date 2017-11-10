@@ -8,7 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.service.CheckbookService;
+import com.service.impl.CheckbookServiceImpl;
 import com.service.impl.LoginServiceImpl;
+import com.service.LoginService;
 
 /**
  * Servlet implementation class LoginServlet
@@ -20,7 +23,8 @@ public class LoginServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	private LoginServiceImpl loginService = new LoginServiceImpl();
+	private LoginService loginService = new LoginServiceImpl();
+	private CheckbookService checkbook = new CheckbookServiceImpl();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -36,15 +40,19 @@ public class LoginServlet extends HttpServlet {
 
 		if (bool) {
 			if (isLibrarian.equals("true")) {
-				request.getSession().setAttribute("user_name", urn);
-				request.getRequestDispatcher("/index2.html").forward(request, response);
-			} else {
-				request.getSession().setAttribute("user_name", urn);
+				request.getSession().setAttribute("ad_name", urn);
+				request.getRequestDispatcher("/index2.jsp").forward(request, response);
+			}
+			else {
+				request.getSession().setAttribute("reader_name", urn);
+				boolean whetherRemind = checkbook.checkbook(urn);
+				if (whetherRemind){
+					request.getRequestDispatcher("/search.jsp?remind=yes").forward(request, response);
+				}
 				request.getRequestDispatcher("/search.jsp").forward(request, response);
 			}
-
-		} else {
-			System.out.print("failed");
+		}
+		else {
 			response.sendRedirect("login.jsp?error=yes");
 		}
 

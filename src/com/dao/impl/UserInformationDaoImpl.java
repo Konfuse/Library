@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.dao.UserInformationDao;
+import com.utils.DBUtils;
 
 public class UserInformationDaoImpl implements UserInformationDao {
 
@@ -31,6 +32,26 @@ public class UserInformationDaoImpl implements UserInformationDao {
 		ps.setString(2, psw);
 		int code = ps.executeUpdate();
 		return code;
+	}
+
+	@Override
+	public String searchReader(String urn) {
+		Connection conn = null;
+		ResultSet rs = null;
+		String pwd = null;
+
+		try {
+			conn = DBUtils.getConnection();
+			PreparedStatement ps = conn.prepareStatement("select reader_psw from reader where reader_name=?");
+			ps.setString(1, urn);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				pwd = rs.getString(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return pwd;
 	}
 
 }

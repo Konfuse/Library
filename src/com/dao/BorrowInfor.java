@@ -1,7 +1,11 @@
 package com.dao;
 
-public interface BorrowInfor {
-	public void add(String book_name, String reader_name, String time);
+import java.util.Date;
 
-	public void delete(String book_name, String reader_name, String time);
+public interface BorrowInfor {
+	public boolean borrowInfor(String book_id, String reader_name, String time);
+
+	public Date searchInfor(String book_id);
+
+	public boolean returnInfor(String book_id, String borrow_time,String return_time, double payment);
 }

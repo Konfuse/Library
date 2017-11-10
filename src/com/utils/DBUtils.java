@@ -34,37 +34,24 @@ public class DBUtils {
 
 	// 关闭资源的方法
 	public static void closeAll(ResultSet rs, Statement stmt, PreparedStatement pstmt, Connection conn) {
-		if (rs != null) {
-			try {
-				rs.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			rs = null;
-		}
-		if (stmt != null) {
-			try {
-				stmt.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			stmt = null;
-		}
-		if (pstmt != null) {
-			try {
-				pstmt.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			pstmt = null;
-		}
-		if (conn != null) {
-			try {
-				conn.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			conn = null;
-		}
+		try {
+            if (rs != null) {
+                    rs.close();
+            }
+
+            if (stmt != null) {
+                    stmt.close();
+            }
+
+            if (pstmt != null) {
+                    pstmt.close();
+            }
+
+            if (conn != null) {
+                    conn.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 	}
 }
