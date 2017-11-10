@@ -33,6 +33,7 @@ public class SignUpServlet extends HttpServlet {
 		String forward = null;
 		LoginUpServiceImpl service = new LoginUpServiceImpl();
 		boolean isSuccess = service.update(urn, psw);
+		//aaaaaaaaaaaaaaaaaaaaa
 		if (isSuccess) {
 			forward = "login.jsp";
 		} else {
